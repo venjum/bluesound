@@ -134,8 +134,8 @@ class BluesoundApi:
         Can be called every second to get player information
 
         Return:
-            Dict(String)
-            SyncStatus([
+            SyncStatus dictionary. All values are string
+            {
                 ('@icon', '/images/players/C390DD_nt.png'),
                 ('@volume', '50'),
                 ('@modelName', 'C390'),
@@ -147,13 +147,13 @@ class BluesoundApi:
                 ('@syncStat', '11'),
                 ('@id', '192.168.1.8:11000'),
                 ('@mac', 'xx:xx:xx:xx:xx:xx')
-            ])
+            }
 
         Raises:
             RuntimeError if it can't connect to player
         """
         with urllib.request.urlopen(self.baseUrl + "SyncStatus") as respons:
-            return xmltodict.parse(respons.read())
+            return xmltodict.parse(respons.read())['SyncStatus']
 
         raise RuntimeError("Could not get SyncStatus from Bluesound device")
 
@@ -164,8 +164,8 @@ class BluesoundApi:
 
         Return:
             Dict(String) with status. The dict will vary depending on chosen input channel.
-            This example is with TuneIn
-            status([
+            This example is with TuneIn. All values is string.
+            {
                 ('@etag', '3b85bc61da52c3341aa12c66eddbbd91'),
                 ('canMovePlayback', 'true'),
                 ('canSeek', '0'),
@@ -196,12 +196,12 @@ class BluesoundApi:
                 ('title3', 'Radio Norge'),
                 ('volume', '88'),
                 ('secs', '5')
-            ])
+            }
 
         Raises:
             RuntimeError if it can't connect to player
         """
         with urllib.request.urlopen(self.baseUrl + "Status") as respons:
-            return xmltodict.parse(respons.read())
+            return xmltodict.parse(respons.read())['status']
 
         raise RuntimeError("Could not get Status from Bluesound device")
