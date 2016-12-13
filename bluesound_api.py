@@ -30,6 +30,8 @@ http://192.168.1.38:11000/RadioBrowse?service=Capture
 Then you can switch to them using
 http://192.168.1.38:11000/Play?url=Capture%3Ahw%3A1%2C0%2F1%2F25%2F2&preset_id&image=/images/inputIcon.png (Optical Input)
 http://192.168.1.38:11000/Play?url=Capture%3Abluez%3Abluetooth&preset_id&image=/images/BluetoothIcon.png (Bluetooth Input)
+http://192.168.1.38:11000/Play?url=RadioParadise%3Ahttp%3A%2F%2Fstream-tx3.radioparadise.com%2Faac-320&preset_id&image=/images/ParadiseRadioIcon.png
+http://192.168.1.38:11000/Play?url=Capture%3Aspotify%3Aplay&preset_id&image=/images/SpotifyIcon.png
 """
 from enum import Enum
 import urllib.request
@@ -128,13 +130,52 @@ class BluesoundApi:
         """
         urllib.request.urlopen(self.baseUrl + "Shuffle?state=" + str(int(shuffleOn)))
 
+    def getInputs(self):
+        """
+        Get all input for player.
+
+        Note:
+            The radio service TuneIn and Local Music is not listed here.
+
+        Returns:
+            Dictionary radiotime. All values are string
+            The result will vary from which player you have.
+            {
+                ('@service', 'Capture'),
+                ('item',
+                    {
+                        ('@URL', 'RadioParadise%3Ahttp%3A%2F%2Fstream-tx3.radioparadise.com%2Faac-320'),
+                        ('@image', '/images/ParadiseRadioIcon.png'),
+                        ('@serviceType', 'CloudService'),
+                        ('@text', 'Radio Paradise'),
+                        ('@type', 'audio')
+                    },
+                    {
+                        ('@URL', 'Capture%3Aspotify%3Aplay'),
+                        ('@image', '/images/SpotifyIcon.png'),
+                        ('@serviceType', 'CloudService'),
+                        ('@text', 'Spotify'),
+                        ('@type', 'audio')
+                    },
+                    {
+                        ('@URL', 'Capture%3Abluez%3Abluetooth'),
+                        ('@image', '/images/BluetoothIcon.png'),
+                        ('@text', 'Bluetooth'),
+                        ('@type', 'audio')
+                    }
+                )
+            }
+        """
+        with urllib.request.urlopen(self.baseUrl + "RadioBrowse?service=Capture") as respons:
+            return xmltodict.parse(respons.read())['radiotime']
+
     def getSyncStatus(self):
         """
         Request Sync Status from Bluesound player
         Can be called every second to get player information
 
         Return:
-            SyncStatus dictionary. All values are string
+            Dictionary SyncStatus. All values are string
             {
                 ('@icon', '/images/players/C390DD_nt.png'),
                 ('@volume', '50'),
@@ -163,7 +204,7 @@ class BluesoundApi:
         Can be called every second to get player information
 
         Return:
-            Dict(String) with status. The dict will vary depending on chosen input channel.
+            Dictionary status. The dict will vary depending on chosen input channel.
             This example is with TuneIn. All values is string.
             {
                 ('@etag', '3b85bc61da52c3341aa12c66eddbbd91'),
