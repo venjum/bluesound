@@ -3,7 +3,7 @@ Common subscription objects.
 None of these have callback set
 """
 
-from bluesound_subscribe import SubscriptionObject
+from .bluesound_subscribe import SubscriptionObject
 
 """
 Title 1 can be a slogan of a radio channel in TuneIn
@@ -42,3 +42,8 @@ Show number of seconds into the track in Spotify.
 or number of seconds of listening in TuneIn
 """
 secondsInTrack = SubscriptionObject(['status', 'secs'])
+
+"""
+Stream state for example Spotify. "stream" = playing, "pause" = pause
+"""
+streamState = SubscriptionObject(['status', 'state'])

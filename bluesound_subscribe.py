@@ -5,7 +5,7 @@ Bluesound class requires set (list) of SubscriptionObject as argument for subscr
 
 # When for example skipping song, The Bluesound player can output information we don't want.
 # Thus this is a default ignore list for all SubscriptionObjects
-DEFAULT_IGNORE_VALUES = {'Spotify', 'None'}
+DEFAULT_IGNORE_VALUES = {'Spotify', 'None', None}
 
 
 def lookup(dic, key, *keys):

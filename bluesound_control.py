@@ -14,7 +14,7 @@ Stop service:
 """
 
 import threading
-from bluesound_api import BluesoundApi
+from .bluesound_api import BluesoundApi
 
 
 class Bluesound(BluesoundApi):
