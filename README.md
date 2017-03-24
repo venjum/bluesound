@@ -3,6 +3,8 @@
 Bluesound API for for controlling a Bluesound player.
 see: http://www.bluesound.com
 
+## Install (program is in beta, must install with github address)
+pip3 install git+https://github.com/venjum/bluesound.git
 
 ## Example of usage:
 
