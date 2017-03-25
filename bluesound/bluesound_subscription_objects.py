@@ -3,7 +3,7 @@ Common subscription objects.
 None of these have callback set
 """
 
-from .bluesound_subscribe import SubscriptionObject
+from bluesound.bluesound_subscribe import SubscriptionObject
 
 """
 Title 1 can be a slogan of a radio channel in TuneIn
