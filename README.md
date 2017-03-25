@@ -10,22 +10,27 @@ pip3 install git+https://github.com/venjum/bluesound.git
 
 ### Make a subscription handler:
 def handelTitle1(new_title):
+    
     print(new_title)
 
 from bluesound.bluesound_subscribe import SubscriptionObject
+
 title1 = SubscriptionObject(['status', 'title1'], handelTitle1)
 
 ### Or use some of the predefined subscription objects, but remember to set callback
 from bluesound_subscription_objects import secondsInTrack
 
 def handelSecondsInTrack(sec):
+    
     print(sec)
 
 secondsInTrack.setCallback(handelSecondsInTrack)
 
 ### Then initiate and start Bluesound thread
 from bluosesound.bluesound_control import Bluesound
+
 bluos = Bluesound("192.168.1.87", 1.0, set([title1, secondsInTrack]))
+
 bluos.start()
 
 ### Use the API
